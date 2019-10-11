@@ -141,13 +141,17 @@ jobs:
               PACKAGES=$(find Source/*/package.json)
               echo "$PACKAGES" | while read -r package
               do
-                  JSON=$(jq -r -e --arg ver $(Version) '.version = $ver' "$package")
-                  echo "$JSON" > "$package"
-                  git add "$package"
+                  #JSON=$(jq -r -e --arg ver $(Version) '.version = $ver' "$package")
+                  #echo "$JSON" > "$package"
+                  #git add "$package"
                   dir=dirname "$package"
-                  cd "$dir"
-                  npm publish
-                  cd ../..
+                  echo "$PWD"
+                  ls .
+                  echo "Dir:"
+                  echo "$dir"
+                  #cd "$dir"
+                  #npm publish
+                  #cd ../..
               done
               git commit -m "Increment versions"
               git push https://$GIT_USERNAME:$PAT@github.com/$REPO HEAD:$BRANCH
