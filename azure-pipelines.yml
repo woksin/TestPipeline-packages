@@ -138,7 +138,7 @@ jobs:
               git push https://$GIT_USERNAME:$PAT@github.com/$REPO $(Version)
           else
               echo "Releasing multiple packages"
-              for package in find Source/*/package.json
+              for package in Source/*/package.json
               do
                   JSON=$(jq -r -e --arg ver $(Version) '.version = $ver' "$package")
                   echo "$JSON" > "$package"
