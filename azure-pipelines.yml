@@ -143,8 +143,9 @@ jobs:
                   echo "$package"
                   JSON=$(jq -r -e --arg ver $(Version) '.version = $ver' ./"$package")
                   echo "$JSON" > ./"$package"
+                  dir=$(dirname "$package")
                   git add ./"$package"
-                  npm publish ./"$package"
+                  npm publish ./"$dir"
                   
               done
               git commit -m "Increment versions"
