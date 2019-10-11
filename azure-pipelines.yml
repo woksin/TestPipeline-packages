@@ -140,15 +140,12 @@ jobs:
               echo "Releasing multiple packages"
               for package in Source/*/package.json
               do
-                  JSON=$(jq -r -e --arg ver $(Version) '.version = $ver' "$package")
-                  echo "$JSON" > "$package"
-                  git add "$package"
-                  dir=dirname "$package"
                   echo "$package"
-                  echo "$dir"
-                  cd "$dir"
-                  npm publish
-                  cd ../..
+                  JSON=$(jq -r -e --arg ver $(Version) '.version = $ver' ./"$package")
+                  echo "$JSON" > ./"$package"
+                  git add ./"$package"
+                  npm publish ./"$package"
+                  
               done
               git commit -m "Increment versions"
               git push https://$GIT_USERNAME:$PAT@github.com/$REPO HEAD:$BRANCH
